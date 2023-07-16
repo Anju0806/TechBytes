@@ -60,6 +60,68 @@ router.get('/dashboard', async (req, res) => {
   }
 });
 
+router.delete('/deletepost/:id', async (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    // Find the post by ID
+    const post = await Post.findByPk(postId);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Could not find the post.' });
+    }
+    await post.destroy();
+
+    res.status(200).json({ message: 'Post deleted successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+router.put('/editpost', async (req, res) => {
+  try {
+    const { post_id, title, content } = req.body;
+    
+
+    // Find the post by ID
+    const post = await Post.findByPk(post_id);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Could not find the post.' });
+    }
+
+    // Update the post data
+    post.title = title;
+    post.content = content;
+    await post.save();
+
+    res.status(200).json({ message: 'Post updated successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+router.get('/editpost/:id', async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const post1 = await Post.findByPk(postId);
+
+    if (!post1) {
+      return res.status(404).json({ error: 'Could not find the post.' });
+    }
+    const post = post1.get({ plain: true });
+    res.render('editpost', { post, logged_in: req.session.logged_in });
+  } catch (error) {
+    console.error(error);
+    res.render('error');
+  }
+});
+
+
 router.get('/addapost', async (req, res) => {
   try {
     if (!req.session.logged_in) {
