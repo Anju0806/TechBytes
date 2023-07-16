@@ -29,6 +29,10 @@ Comment.init(
           key: 'id',
         },
     },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW, // Set the default value to the current timestamp
+    },
     
   },
   {
