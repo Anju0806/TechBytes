@@ -18,10 +18,9 @@
         </div>
         <footer class="card-footer">
             <a href="/post/{{post.id}}" class="card-footer-item" id="view-comments" data-id="{{post.id}}">View comments</a> 
-            <a href="" class="card-footer-item" id="edit-post">Edit this post</a>
+            <a href="/editpost/{{post.id}}" class="card-footer-item" id="edit-post">Edit this post</a>
             <a href="#" class="card-footer-item" id="delete-post" data-id="{{post.id}}">Delete this post</a>
           </footer> 
-
       </div>
     </div>
   </section>
@@ -31,5 +30,7 @@
 <p>No posts found.</p>
 {{/if}}
 
+
+<script src="/js/deletepost.js"></script>
 
 

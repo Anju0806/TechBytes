@@ -25,7 +25,7 @@ try{
     return plainPost;
   });
 
-  res.render('index', { post_data_plain, loggedIn: req.session.logged_in });
+  res.render('index', { post_data_plain, logged_in: req.session.logged_in });
 } catch (error) {
   console.error(error);
   res.render('error');
@@ -59,6 +59,68 @@ router.get('/dashboard', async (req, res) => {
       res.status(500).json({ error: 'Server error' });
   }
 });
+
+router.delete('/deletepost/:id', async (req, res) => {
+  try {
+    const postId = req.params.id;
+
+    // Find the post by ID
+    const post = await Post.findByPk(postId);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Could not find the post.' });
+    }
+    await post.destroy();
+
+    res.status(200).json({ message: 'Post deleted successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+router.put('/editpost', async (req, res) => {
+  try {
+    const { post_id, title, content } = req.body;
+    
+
+    // Find the post by ID
+    const post = await Post.findByPk(post_id);
+
+    if (!post) {
+      return res.status(404).json({ error: 'Could not find the post.' });
+    }
+
+    // Update the post data
+    post.title = title;
+    post.content = content;
+    await post.save();
+
+    res.status(200).json({ message: 'Post updated successfully.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+
+router.get('/editpost/:id', async (req, res) => {
+  try {
+    const postId = req.params.id;
+    const post1 = await Post.findByPk(postId);
+
+    if (!post1) {
+      return res.status(404).json({ error: 'Could not find the post.' });
+    }
+    const post = post1.get({ plain: true });
+    res.render('editpost', { post, logged_in: req.session.logged_in });
+  } catch (error) {
+    console.error(error);
+    res.render('error');
+  }
+});
+
 
 router.get('/addapost', async (req, res) => {
   try {
@@ -211,7 +273,7 @@ router.post('/login', async (req, res) => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
 
-      res.redirect('/profile');
+      res.redirect('/');
       
     });
 
@@ -220,6 +282,16 @@ router.post('/login', async (req, res) => {
   }
 
 })
+
+router.get('/logout', (req, res) => {
+  if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.redirect('/'); 
+    });
+  } else {
+    res.status(404).end();
+  }
+});
 
 
 // /login -- show login form & sign up
@@ -246,7 +318,7 @@ router.post('/signup', async (req, res) => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
 
-      res.redirect('/profile')
+      res.redirect('/')
     });
   } catch (err) {
     res.render('signup', {
@@ -256,40 +328,20 @@ router.post('/signup', async (req, res) => {
 })
 
 
-// /profile (protected)-- current user projects & create new project
-// & delete project
+
 router.use(authenticate);
-router.get('/profile', (req, res) => {
+router.get('/', (req, res) => {
 
   // need the current user
-  User.findByPk(req.session.user_id, {
-    include: [
-      {model: Project}
-    ]
-  }).then((userData) => {
-    res.render('profile', {
+  User.findByPk(req.session.user_id,).then((userData) => {
+    res.render('/', {
       logged_in: req.session.logged_in,
       user: userData.get({plain: true}),
     })
 
   })
 
-  // need the current user project
-
 })
-
-
-router.post('/profile/projects/:id/delete', (req, res) => {
-  Project.destroy({
-    where: {
-      id: req.params.id,
-    }
-  })
-
-  // TODO: continue
-  
-})
-
 
 
 
