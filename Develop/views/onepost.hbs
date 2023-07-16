@@ -1,0 +1,37 @@
+
+
+
+
+
+
+
+{{log post_plain}}
+{{#if post_plain.length}}
+{{!-- 
+  <p class="title is-4">Your Reviews</p> --}}
+            
+
+  <section>
+    <div class="card">
+      <div class="card-content">
+          
+        <div class="content">
+         
+          <p class="title is-4">{{post.title}}</p>
+          <p class="title is-4">{{post.content}}</p>
+          {{#each post.user.comments.content as |comment|}}
+            <p class="subtitle is-6">{{comment.content}}</p>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </section>
+{{else}}
+
+{{log post_plain}}
+<p>Post is not found.</p>
+{{/if}}
+
+{{!-- <script src="/js/reviews.js"></script>
+ --}}
+

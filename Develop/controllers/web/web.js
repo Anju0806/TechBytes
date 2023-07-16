@@ -1,48 +1,112 @@
 const authenticate = require('../../middleware/authenticate');
-const { Project, User } = require('../../models');
+const { Post, Comment, User } = require('../../models');
 
 const router = require('express').Router();
 
 
 
 //  / -- list of projects
-router.get('/', (req, res) => {
-
-  Project.findAll({
+router.get('/', async(req, res) => {
+try{
+  const post_data=await Post.findAll({
     include: [
-      {model: User}
+      {
+        model: User, 
+        include:[Comment]}
     ]
   })
-    .then((projects) => {
-      res.render('index', {
-        projects: projects.map((project) => project.get({ plain: true })),
-        logged_in: req.session.logged_in,
-      })
-    }).catch((err) => {
+  if (!post_data){
+    return res.status(404).json({ error: 'Could not load any posts..' });
+  }
+  const post_data_plain=post_data.map((p) => p.get({ plain: true }));
+  
+  /* post_data_plain.forEach((post) => {
+    console.log(post);
+    console.log(post.user);
+    console.log(post.user.comments);
+    
+  }); */
+  res.render('index', { post_data_plain, loggedIn: req.session.logged_in});
+  }catch (error) {
+    console.error(error);
+    res.render('error');
+}
 
-      res.render('error')
-    })
+});
+
+//clicking on dashbord--present all my post 
+router.get('/dashbaord', async (req, res) => {
+  try {
+      //console.log(req.session);
+      /* let user_id = req.session.user_id;
+      console.log(user_id);
+      
+       if (req.session.logged_in) {
+    req.session.destroy(() => {
+      res.status(204).end();
+    });
+  } else {
+    res.status(404).end();
+  }*/
+      console.log(req.session);
+      if (!req.session.logged_in) {
+          res.render('login');
+      }
+      else{
+      const post_data = await Post.findAll({
+          where: { user_id: req.session.user_id },
+          include: [
+            {
+              model: User, 
+              include:[Comment]}
+          ]
+
+      });
+      if (!post_data){
+        return res.status(404).json({ error: 'Could not load any posts..' });
+      }
+      const post_data_plain=post_data.map((p) => p.get({ plain: true }));
+      
+      /* post_data_plain.forEach((post) => {
+        console.log(post);
+        console.log(post.user);
+        console.log(post.user.comments);
+        
+      }); */
+      res.render('viewdashboard', { post_data_plain, logged_in: req.session.logged_in});
+       } }catch (error) {
+
+      res.status(500).json({ error: 'Server error' });
+  }
 });
 
 
-// /project/:id --- show a project
-router.get('/project/:id', (req,res) => {
+// post/id --- show a post
+router.get('/post/:id', async (req, res) => {
+  try {
+    const post_data = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          include: [Comment]
+        }
+      ]
+    });
+    if (!post_data) {
+      return res.status(404).json({ error: 'Could not find the post.' });
+    }else{
+    const post_plain= post_data.get({ plain: true });
+    console.log(post_plain);
+    res.render('onepost', { post_plain, logged_in: req.session.logged_in });
+  } }
+  catch (error) {
+    console.error(error);
+    res.render('error');
+  }
+});
 
-  Project.findByPk(req.params.id, {
-    include: [
-      {model: User},
-    ]
-  }).then((data) => {
-
-    const project = data.get({plain: true});
 
 
-    res.render('project', {
-      logged_in: req.session.logged_in,
-      project: project,
-    })
-  })
-})
 
 router.post('/login', async (req, res) => {
   try {
