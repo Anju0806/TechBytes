@@ -161,41 +161,25 @@ router.get('/addcomment', async (req, res) => {
 router.get('/post/:id', async (req, res) => {
   try {
     const postid=req.params.id;
-   /*  const post_data = await Post.findByPk(postid, {
-      include: [
-        {
-          model: User,
-          include: [{ model: Comment, include: [User],
-            where: {
-              post_id: postid,
-            },required: false, }]
-        }
-      ]
-    }); */
     const post_data = await Post.findByPk(postid, {
       include: [
         {
           model: User,
-          include: [
-            {
-              model: Comment,
-              include: [User],
-              where: {
-                post_id: postid,
-              },
-              required: false, // Allow retrieving the post even if there are no comments
-            },
-          ],
+        },
+        {
+          model: Comment,
+          include: [User],
         },
       ],
     });
-  
+
     if (!post_data) {
       return res.status(404).json({ error: 'Could not find the post.' });
     }
-  
+
     const post_plain = post_data.get({ plain: true });
-    const comment_data = post_plain.user.comments;
+    //const comment_data = post_plain.user.comments;
+    const comment_data = post_plain.comments;
     res.render('onepost', { post_plain, comment_data, logged_in: req.session.logged_in });
   } catch (error) {
     console.error(error);
