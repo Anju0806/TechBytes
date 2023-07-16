@@ -18,37 +18,24 @@ try{
   if (!post_data){
     return res.status(404).json({ error: 'Could not load any posts..' });
   }
-  const post_data_plain=post_data.map((p) => p.get({ plain: true }));
-  
-  /* post_data_plain.forEach((post) => {
-    console.log(post);
-    console.log(post.user);
-    console.log(post.user.comments);
-    
-  }); */
-  res.render('index', { post_data_plain, loggedIn: req.session.logged_in});
-  }catch (error) {
-    console.error(error);
-    res.render('error');
-}
+  const post_data_plain = post_data.map((post) => {
+    const plainPost = post.get({ plain: true });
+    plainPost.createdAt = post.createdAt; // Add the createdAt property
+   // console.log('createdAt:', plainPost); 
+    return plainPost;
+  });
 
+  res.render('index', { post_data_plain, loggedIn: req.session.logged_in });
+} catch (error) {
+  console.error(error);
+  res.render('error');
+}
 });
 
-//clicking on dashbord--present all my post 
-router.get('/dashbaord', async (req, res) => {
+// /clicking on dashbord--present all my post 
+router.get('/dashboard', async (req, res) => {
   try {
-      //console.log(req.session);
-      /* let user_id = req.session.user_id;
-      console.log(user_id);
-      
-       if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }*/
-      console.log(req.session);
+     
       if (!req.session.logged_in) {
           res.render('login');
       }
@@ -66,13 +53,6 @@ router.get('/dashbaord', async (req, res) => {
         return res.status(404).json({ error: 'Could not load any posts..' });
       }
       const post_data_plain=post_data.map((p) => p.get({ plain: true }));
-      
-      /* post_data_plain.forEach((post) => {
-        console.log(post);
-        console.log(post.user);
-        console.log(post.user.comments);
-        
-      }); */
       res.render('viewdashboard', { post_data_plain, logged_in: req.session.logged_in});
        } }catch (error) {
 
@@ -80,33 +60,148 @@ router.get('/dashbaord', async (req, res) => {
   }
 });
 
-
-// post/id --- show a post
-router.get('/post/:id', async (req, res) => {
+router.get('/addapost', async (req, res) => {
   try {
-    const post_data = await Post.findByPk(req.params.id, {
+    if (!req.session.logged_in) {
+        res.render('login');
+    }
+    else{
+    res.render('addpost');
+     } 
+    
+    }catch (error) {
+    res.status(500).json({ error: 'Server error' });
+}
+});
+
+router.post('/savepost', async (req, res) => {
+  try {
+    if (!req.session.logged_in) {
+      return res.render('login');
+    } else {
+      const { title, content } = req.body; 
+      const user_id = req.session.user_id;
+
+      if (!title || !content) {
+        return res.status(400).json({ error: 'Title and content cannot be empty.' });
+      }
+
+      await Post.create({ title, content, user_id });
+
+      res.status(200).json();
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+router.post('/savecomment', async (req, res) => {
+  try {
+    if (!req.session.logged_in) {
+      return res.render('login');
+    } else {
+      const { post_id, content } = req.body; 
+      const user_id = req.session.user_id;
+
+      if (!post_id || !content) {
+        return res.status(400).json({ error: 'Content cannot be empty.' });
+      }
+      await Comment.create({ content, user_id, post_id});
+
+      res.status(200).json();
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+router.get('/addcomment', async (req, res) => {
+  if (!req.session.logged_in) {
+    return res.render('login');
+  }
+  const user_id = req.session.user_id;
+  const postId = req.query.postid;
+  try {
+    // Perform a check if the user has already written a comment for the post
+    const existingComment = await Comment.findOne({
+      where: {
+        user_id: user_id,
+        post_id: postId
+      }
+    });
+    if (existingComment) {
+      return res.redirect(`/post/${postId}`); 
+    }
+    
+    // User has not written a comment, render the "addcomment" template
+    const post_data = await Post.findByPk(postId, {
       include: [
         {
           model: User,
-          include: [Comment]
+          include: [{ model: Comment, include: [User] }]
         }
       ]
     });
     if (!post_data) {
       return res.status(404).json({ error: 'Could not find the post.' });
-    }else{
-    const post_plain= post_data.get({ plain: true });
-    console.log(post_plain);
-    res.render('onepost', { post_plain, logged_in: req.session.logged_in });
-  } }
-  catch (error) {
+    } 
+    const post_plain = post_data.get({ plain: true });
+    const comment_data = post_plain.user.comments;
+    res.render('addcomment',{ post_plain, comment_data, logged_in: req.session.logged_in });
+  } catch (error) {
     console.error(error);
-    res.render('error');
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
 
 
+// post/id --- show a post
+router.get('/post/:id', async (req, res) => {
+  try {
+    const postid=req.params.id;
+   /*  const post_data = await Post.findByPk(postid, {
+      include: [
+        {
+          model: User,
+          include: [{ model: Comment, include: [User],
+            where: {
+              post_id: postid,
+            },required: false, }]
+        }
+      ]
+    }); */
+    const post_data = await Post.findByPk(postid, {
+      include: [
+        {
+          model: User,
+          include: [
+            {
+              model: Comment,
+              include: [User],
+              where: {
+                post_id: postid,
+              },
+              required: false, // Allow retrieving the post even if there are no comments
+            },
+          ],
+        },
+      ],
+    });
+  
+    if (!post_data) {
+      return res.status(404).json({ error: 'Could not find the post.' });
+    }
+  
+    const post_plain = post_data.get({ plain: true });
+    const comment_data = post_plain.user.comments;
+    res.render('onepost', { post_plain, comment_data, logged_in: req.session.logged_in });
+  } catch (error) {
+    console.error(error);
+    res.render('error');
+  }  
+});
 
 router.post('/login', async (req, res) => {
   try {

@@ -1,39 +1,22 @@
 
-
-
-
-{{#if post_data_plain.length}}
-{{!-- 
-  <p class="title is-4">Your Reviews</p> --}}
-            
-  {{#each post_data_plain as |post|}}
+ {{#each post_data_plain}}
   <section>
-    <a href="/post/{{post.id}}">
+    <a href="/post/{{id}}">
     <div class="card">
       <div class="card-content">
-          
-        <div class="content">
-         
-          <p class="title is-4">{{post.title}}</p>
-          <p class="title is-4">{{post.content}}</p>
-          <p class="subtitle is-4">{{post.user.name}}</p>
-          {{!-- <p class="subtitle is-6">{{post.user.comments.content}}</p> --}}
+        <div class="media">
+          <div class="media-content">
+            <div class="content">
+              <p class="title is-4">{{title}}</p>
+              <p class="title is-4">{{content}}</p>
+              <p class="subtitle is-4">Created by: {{user.name}}</p>
+              <p class="subtitle is-4">Created at: {{formatDate createdAt}}</p> <!-- Display the createdAt value -->
+            </div>
+          </div>
         </div>
-        {{!--   <footer class="card-footer">
-            <a href="/reviewsedit/{{review.id}}" class="card-footer-item" id="edit-review">Edit</a>
-            <a href="#" class="card-footer-item" id="delete-review" data-id="{{review.id}}">Delete</a>
-          </footer> --}}
       </div>
     </div>
-    
     </a>
   </section>
-  {{/each}}
-
-{{else}}
-<p>No posts found.</p>
-{{/if}}
-
-{{!-- <script src="/js/reviews.js"></script>
- --}}
+{{/each}}
 
