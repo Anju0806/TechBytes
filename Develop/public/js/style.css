@@ -1,0 +1,42 @@
+/* Navbar styles */
+.navbar {
+    background-color: #755e32;
+}
+.navbar-item {
+    color: #f0eeec;
+}
+.navbar-burger span {
+    background-color: #faf9f9;
+}
+a.navbar-item:hover {
+    color: #f5cf8e;
+}
+.button {
+    background-color:#755e32;
+    color: #f8f7f7;
+    border-color: #755e32;
+}
+.button:hover {
+    color: #f5cf8e;
+    border-color: #755e32;
+}
+@media screen and (max-width: 1023px) {
+.navbar-menu {
+    background-color: #755e32;
+    
+}}
+
+/* ------  Navbar styles untill here  ------*/
+body {
+    background-color: #816228;
+    min-height: 100vh;
+}
+ .box {
+    
+    background-color: #816228;
+    color: #161515;
+    /* border-color: #755e32; */
+}
+.card{
+    background-color:#f8f3e3df;
+}
