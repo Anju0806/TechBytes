@@ -7,7 +7,7 @@ async function editPostHandler(event) {
     const textareaElement1 = document.getElementById('postcontent');
     const content = textareaElement1.value;
 
-    const response = await fetch(`/editpost`, {
+    const response = await fetch(`/api/posts/`, {
         method: 'PUT',
         body: JSON.stringify({
             post_id:post_id,

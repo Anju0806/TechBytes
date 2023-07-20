@@ -5,7 +5,7 @@ async function newCommentHandler(event) {
     const textareaElement1 = document.getElementById('commenttext');
     const content = textareaElement1.value;
 
-    const response = await fetch(`/savecomment`, {
+    const response = await fetch(`/api/comments/`, {
         method: 'POST',
         body: JSON.stringify({
             post_id:post_id,

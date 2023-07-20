@@ -7,7 +7,7 @@ async function newPostHandler(event) {
     const textareaElement1 = document.getElementById('postcontent');
     const content = textareaElement1.value;
 
-    const response = await fetch(`/savepost`, {
+    const response = await fetch(`/api/posts/`, {
         method: 'POST',
         body: JSON.stringify({
             title:title,
