@@ -1,27 +1,36 @@
 <section>
-        <div class="card">
-                <div class="card-content">
-                        <div class="content">
-                                <p class="title is-4">{{post_plain.title}}</p>
-                                <p class="title is-4">{{post_plain.content}}</p>
-                                <p class="title is-4">Post created by {{post_plain.user.name}}</p>
-                                <p class="title is-4">Post created at {{formatDate post_plain.createdAt}}</p>
-                                {{!-- {{#each comment_data as |comment|}}
-                                         <p class="subtitle is-6">{{comment.content}}</p>
-                                        <p class="subtitle is-6">Comment by {{comment.user.name}}</p>
-                                         <p class="subtitle is-6">Comment created at: {{formatDate comment.createdAt}}</p>
-                                {{/each}} --}}
-                                <h2 class="subtitle">Add a new Comment</h2>
-                                <form class="card-body " id="new-comment-form">
-                                         <input type="hidden" name="post_id" value="{{post_plain.id}}">
-                                        <textarea id="commenttext" class="textarea" placeholder="Enter a comment.."></textarea>
-                                        <button type="submit" class="button is-link" id="submit">Create Comment</button>
-                                </form>
-                                <footer class="card-footer">
-                                        <a href="/" class="card-footer-item">Go to home</a>
-                                </footer>
-                        </div>
-                </div>
+ <div class="card">
+   <div class="card-content">
+        <div class="content">
+     <div class="columns">
+            <div class="column is-one-third">
+              <p class="title is-4">{{post_plain.title}}</p>
+            </div>
+            <div class="column"></div>
+            <div class="column">
+              <p class="subtitle is-6 ">written by {{post_plain.user.name}} on {{formatDate post_plain.createdAt}}</p>
+            </div>
+          </div>
+          <p class="title is-4">{{post_plain.content}}</p>
+ 
+         <div class="box">
+           <h2 class="subtitle is-6 ">Add a new Comment</h2>
+              <form class="card-body " id="new-comment-form">
+                <input type="hidden" name="post_id" value="{{post_plain.id}}">
+                <textarea id="commenttext" class="textarea" placeholder="Enter a comment.."></textarea>
+
+                <footer class="card-footer">
+                {{!--  <button type="submit" class="button is-link" id="submit">Create Comment</button> --}}
+                <a href="" class="card-footer-item" id="submit">Create Comment</a>
+                <a href="/" class="card-footer-item">Go to home</a>
+                </footer>
+                 </form>
+                 <div id="error-message"></div>
+                  
+                 </div>
+                                
+        </div>
+        </div>
         </div>
 </section>
 

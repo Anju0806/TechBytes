@@ -3,48 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <title>TechBytes</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"> 
+  <link rel="stylesheet" href="/js/style.css"> 
 </head>
-<body>
-  
+
+<body> 
 <nav class="navbar" role="navigation" aria-label="main navigation">
-  
-
-  <div id="navbarBasicExample" class="navbar-menu">
-    <div class="navbar-start">
-      <a href="/" class="navbar-item">
-        Home
-      </a>
-
-      <a href="/dashboard" class="navbar-item">
-        Dashboard
-      </a>
+    <div class="navbar-brand">
+       <a class="navbar-item" href="/"><strong>TechBytes</strong></a>
+        <a class="navbar-item" href="/">Home</a>
+        <a href="/dashboard" class="navbar-item">Dashboard</a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
     </div>
 
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          {{#if logged_in }}
-          <a href="/logout"  class="button is-primary">
-            <strong>Log out</strong>
-          </a>
-          {{else}}
-          <a href="/signup" class="button is-primary">
-            <strong>Sign up</strong>
-          </a>
-          <a  href="/login" class="button is-light">
-            Log in
-          </a>
-          {{/if }}
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            {{#if logged_in }}
+              <button id="logout-btn"  class="button "><strong>Log out</strong> </button>
+            {{else}}
+              <a href="/signup" class="button "><strong>Sign up</strong></a>
+              <a href="/login" class="button "> <strong>Log in</strong></a>
+            {{/if }}
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </nav>
  <main>
     {{{ body }}}
   </main>
+  <script src="/js/logout.js"></script>
+   <script>
+    // JavaScript code for handling the menu toggle
+   document.addEventListener('DOMContentLoaded', function () {
+  var navbarBurger = document.querySelector('.navbar-burger');
+  var navbarMenu = document.querySelector('.navbar-menu');
+  
+  navbarBurger.addEventListener('click', function () {
+    navbarBurger.classList.toggle('is-active');
+    navbarMenu.classList.toggle('is-active');
+  });
+});
+
+  </script>
 </body>
 </html>
 

@@ -60,49 +60,9 @@ router.get('/dashboard', async (req, res) => {
   }
 });
 
-router.delete('/deletepost/:id', async (req, res) => {
-  try {
-    const postId = req.params.id;
-
-    // Find the post by ID
-    const post = await Post.findByPk(postId);
-
-    if (!post) {
-      return res.status(404).json({ error: 'Could not find the post.' });
-    }
-    await post.destroy();
-
-    res.status(200).json({ message: 'Post deleted successfully.' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
 
 
-router.put('/editpost', async (req, res) => {
-  try {
-    const { post_id, title, content } = req.body;
-    
 
-    // Find the post by ID
-    const post = await Post.findByPk(post_id);
-
-    if (!post) {
-      return res.status(404).json({ error: 'Could not find the post.' });
-    }
-
-    // Update the post data
-    post.title = title;
-    post.content = content;
-    await post.save();
-
-    res.status(200).json({ message: 'Post updated successfully.' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
 
 
 router.get('/editpost/:id', async (req, res) => {
@@ -136,47 +96,8 @@ router.get('/addapost', async (req, res) => {
 }
 });
 
-router.post('/savepost', async (req, res) => {
-  try {
-    if (!req.session.logged_in) {
-      return res.render('login');
-    } else {
-      const { title, content } = req.body; 
-      const user_id = req.session.user_id;
 
-      if (!title || !content) {
-        return res.status(400).json({ error: 'Title and content cannot be empty.' });
-      }
 
-      await Post.create({ title, content, user_id });
-
-      res.status(200).json();
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
-router.post('/savecomment', async (req, res) => {
-  try {
-    if (!req.session.logged_in) {
-      return res.render('login');
-    } else {
-      const { post_id, content } = req.body; 
-      const user_id = req.session.user_id;
-
-      if (!post_id || !content) {
-        return res.status(400).json({ error: 'Content cannot be empty.' });
-      }
-      await Comment.create({ content, user_id, post_id});
-
-      res.status(200).json();
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Server error' });
-  }
-});
 
 router.get('/addcomment', async (req, res) => {
   if (!req.session.logged_in) {
@@ -193,7 +114,8 @@ router.get('/addcomment', async (req, res) => {
       }
     });
     if (existingComment) {
-      return res.redirect(`/post/${postId}`); 
+      /* return res.redirect(`/post/${postId}`);  */
+      return res.status(400).json({ error: 'Comment already exists.' });
     }
     
     // User has not written a comment, render the "addcomment" template
@@ -249,49 +171,7 @@ router.get('/post/:id', async (req, res) => {
   }  
 });
 
-router.post('/login', async (req, res) => {
-  try {
-    const userData = await User.findOne({ where: { email: req.body.email } });
 
-    if (!userData) {
-      res.render('login', {
-        error: "Incorrect email or password, please try again"
-      });
-      return;
-    }
-
-    const validPassword = await userData.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res.render('login', {
-        error: "Incorrect email or password, please try again"
-      });
-      return;
-    }
-
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-
-      res.redirect('/');
-      
-    });
-
-  } catch (err) {
-    res.status(400).json(err);
-  }
-
-})
-
-router.get('/logout', (req, res) => {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.redirect('/'); 
-    });
-  } else {
-    res.status(404).end();
-  }
-});
 
 
 // /login -- show login form & sign up
@@ -309,28 +189,12 @@ router.get('/signup', (req, res) => {
   });
 })
 
-router.post('/signup', async (req, res) => {
 
-  try {
-    const userData = await User.create(req.body);
-
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-
-      res.redirect('/')
-    });
-  } catch (err) {
-    res.render('signup', {
-      error: "Something went wrong"
-    });
-  }
-})
 
 
 
 router.use(authenticate);
-router.get('/', (req, res) => {
+/* router.get('/', (req, res) => {
 
   // need the current user
   User.findByPk(req.session.user_id,).then((userData) => {
@@ -341,7 +205,7 @@ router.get('/', (req, res) => {
 
   })
 
-})
+}) */
 
 
 

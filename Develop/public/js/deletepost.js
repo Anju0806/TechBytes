@@ -4,7 +4,7 @@ document.querySelectorAll('#delete-post').forEach(element => {
       const postId = event.target.dataset.id;
     
       try {
-        const response = await fetch(`/deletepost/${postId}`, {
+        const response = await fetch(`/api/posts/${postId}`, {
           method: 'DELETE',
         });
     

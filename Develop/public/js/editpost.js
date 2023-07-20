@@ -7,7 +7,7 @@ async function editPostHandler(event) {
     const textareaElement1 = document.getElementById('postcontent');
     const content = textareaElement1.value;
 
-    const response = await fetch(`/editpost`, {
+    const response = await fetch(`/api/posts/`, {
         method: 'PUT',
         body: JSON.stringify({
             post_id:post_id,
@@ -22,10 +22,23 @@ async function editPostHandler(event) {
     if (response.ok) {
         document.location.replace('/dashboard');
     } else {
-        alert(response.statusText);
+        // Handle the error response
+        const responseData = await response.json(); 
+        if (responseData && responseData.error) {
+            const errorMessage = responseData.error;
+            // Display the error message on the page
+            const errorMessageElement = document.getElementById('error-message');
+            errorMessageElement.textContent = errorMessage;
+        } else {
+            // If no specific error message is available, display a generic message
+            const errorMessageElement = document.getElementById('error-message');
+            errorMessageElement.textContent = 'An error occurred while submitting the comment.';
+        }
     }
 };
 
-document.querySelector('#edit-post-form').addEventListener('submit', editPostHandler);
+/* document.querySelector('#edit-post-form').addEventListener('submit', editPostHandler);
+ */
+document.querySelector('#submit').addEventListener('click', editPostHandler);
 
 

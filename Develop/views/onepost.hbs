@@ -1,25 +1,38 @@
 
-  <section>
+
+
+<section>
+  <div class="box">
     <div class="card">
       <div class="card-content">
-          
+
         <div class="content">
-         
-          <p class="title is-4">{{post_plain.title}}</p>
+          <div class="columns">
+            <div class="column is-one-third">
+              <p class="title is-4">{{post_plain.title}}</p>
+            </div>
+            <div class="column"></div>
+            <div class="column">
+              <p class="subtitle is-6 ">written by {{post_plain.user.name}} on {{formatDate post_plain.createdAt}}</p>
+            </div>
+          </div>
           <p class="title is-4">{{post_plain.content}}</p>
-          <p class="title is-4">Post created by {{post_plain.user.name}}</p>
-          <p class="title is-4">Post created at {{formatDate post_plain.createdAt}}</p>
+
           {{#each comment_data as |comment|}}
-            <p class="subtitle is-6">{{comment.content}}</p>
-            <p class="subtitle is-6">Comment by {{comment.user.name}}</p>
-            <p class="subtitle is-6">Comment created at: {{formatDate comment.createdAt}}</p> 
+          <div class="box">
+            <p class="make-white">{{comment.content}}</p>
+            <p class="make-white">Commented by {{comment.user.name}} on {{formatDate comment.createdAt}}</p>
+          </div>
           {{/each}}
           <footer class="card-footer">
-               <a href="/addcomment?postid={{post_plain.id}}" class="card-footer-item" data-id="{{post.id}}">Add comments</a>
-               <a href="/" class="card-footer-item">Go to home</a> 
-             
-             </footer>
+            <a href="/addcomment?postid={{post_plain.id}}" class="card-footer-item" data-id="{{post.id}}">Add
+              comments</a>
+            <a href="/" class="card-footer-item">Go to home</a>
+
+          </footer>
         </div>
+        <div id="one-comment-error-message"></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
