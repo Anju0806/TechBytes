@@ -33,6 +33,9 @@ router.put('/', async (req, res) => {
     if (!post) {
       return res.status(404).json({ error: 'Could not find the post.' });
     }
+    if (!title || !content) {
+      return res.status(400).json({ error: 'Title and content cannot be empty.' });
+    }
 
     // Update the post data
     post.title = title;
