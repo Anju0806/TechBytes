@@ -40,3 +40,14 @@ body {
 .card{
     background-color:#f8f3e3df;
 }
+.white-link{
+    color: #ffe08a;
+}
+
+.card-footer-item {
+    color: #f6ebce;
+    background-color: #755e32;
+}
+.make-white{
+    color: #f7f0d9;
+}

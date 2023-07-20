@@ -1,10 +1,12 @@
-<a href="/addapost" class="card-footer-item" id="add-post">Add a new  post</a>  
+
+
+
+<a href="/addapost" class="card-footer-item" class="white-link" id="add-post">Click to add a new  post </a>  
 {{#if post_data_plain.length}}
-{{!-- 
-  <p class="title is-4">Your Reviews</p> --}}
         
   {{#each post_data_plain as |post|}}
   <section>
+  <div class="box">
     <div class="card">
       <div class="card-content">
         <div class="media">
@@ -19,9 +21,10 @@
         <footer class="card-footer">
             <a href="/post/{{post.id}}" class="card-footer-item" id="view-comments" data-id="{{post.id}}">View comments</a> 
             <a href="/editpost/{{post.id}}" class="card-footer-item" id="edit-post">Edit this post</a>
-            <a href="#" class="card-footer-item" id="delete-post" data-id="{{post.id}}">Delete this post</a>
+            <a href="#" class="card-footer-item"  id="delete-post" data-id="{{post.id}}">Delete this post</a>
           </footer> 
       </div>
+    </div>
     </div>
   </section>
   {{/each}}

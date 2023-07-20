@@ -1,14 +1,19 @@
- <form class="card-body " id="new-post-form">
+<div class="box">
+        <form class="card-body " id="new-post-form">
 
- 
-<h2 class="subtitle">Create a new Post</h2>
+                <div class="box">
+                         <h2 class="make-white subtitle">Create a new Post</h2>
+                        <textarea id="posttitle" class="textarea" placeholder="Enter post title.."></textarea>
+                        <textarea id="postcontent" class="textarea" placeholder="Enter your post.."></textarea>
+                        <footer class="card-footer">
+                        <a href="" class="card-footer-item" id="submit">Save Post</a>
 
-        <textarea id="posttitle" class="textarea" placeholder="Enter post title.."></textarea>
-         <textarea id="postcontent" class="textarea" placeholder="Enter your post.."></textarea>
-        <button type="submit" class="button is-link" id="submit">Create Post</button>
+                        </footer>
+                </div>
+                {{!-- <button type="submit" class="button is-link" id="submit">Create Post</button> --}}
 
-     </form>
+        </form>
 
 
-     <script src="/js/addpost.js"></script>
-     
+</div>
+<script src="/js/addpost.js"></script>

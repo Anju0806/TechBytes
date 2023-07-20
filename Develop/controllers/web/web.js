@@ -114,7 +114,8 @@ router.get('/addcomment', async (req, res) => {
       }
     });
     if (existingComment) {
-      return res.redirect(`/post/${postId}`); 
+      /* return res.redirect(`/post/${postId}`);  */
+      return res.status(400).json({ error: 'Comment already exists.' });
     }
     
     // User has not written a comment, render the "addcomment" template

@@ -25,6 +25,7 @@ async function newPostHandler(event) {
     }
 };
 
-document.querySelector('#new-post-form').addEventListener('submit', newPostHandler);
-
+/* document.querySelector('#new-post-form').addEventListener('submit', newPostHandler);
+ */
+document.querySelector('#submit').addEventListener('click', newPostHandler);
 
