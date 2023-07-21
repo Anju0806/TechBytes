@@ -40,7 +40,8 @@
  <main>
     {{{ body }}}
   </main>
-  <script src="/js/logout.js"></script>
+    {{#if logged_in }}
+  <script src="/js/logout.js"></script>{{/if }}
    <script>
     // JavaScript code for handling the menu toggle
    document.addEventListener('DOMContentLoaded', function () {
