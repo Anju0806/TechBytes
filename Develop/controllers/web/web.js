@@ -4,7 +4,6 @@ const { Post, Comment, User } = require('../../models');
 const router = require('express').Router();
 
 
-
 //  / -- list of projects
 router.get('/', async(req, res) => {
 try{
@@ -181,24 +180,6 @@ router.get('/signup', (req, res) => {
   });
 })
 
-
-
-
-
 router.use(authenticate);
-/* router.get('/', (req, res) => {
-
-  // need the current user
-  User.findByPk(req.session.user_id,).then((userData) => {
-    res.render('/', {
-      logged_in: req.session.logged_in,
-      user: userData.get({plain: true}),
-    })
-
-  })
-
-}) */
-
-
 
 module.exports = router;
