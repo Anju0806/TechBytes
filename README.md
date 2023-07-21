@@ -38,6 +38,7 @@ and then npm run seed
 4. Run the command node server.js to start the application.
 
 ## TechBytes features
+
 TechBytes provides the following features:
 
 1. A homepage in http://localhost:3001/ ,which includes existing blog posts if any have been posted; navigation links for the homepage and the dashboard. 
