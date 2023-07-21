@@ -1,20 +1,28 @@
 <section>
-
+<div class="box">
+    <div class="card width-50">
+      <div class="card-content">
   <form action="/api/users/login" method="post">
-    <div>
-      <label for="email-input">Email</label>
-      <input type="text" name="email" id="email-input">
+   <div class="field">
+      <label class="label" for="email-input">Email</label>
+      <input class="input" type="text" name="email" id="email-input">
     </div>
-    <div>
-      <label for="password-input">Password</label>
-      <input type="password" name="password" id="password-input">
+    <div class="field">
+      <label class="label" for="password-input">Password</label>
+      <input class="input" type="password" name="password" id="password-input">
     </div>
 
-    <button type="submit">Login</button>
+    <button class="button" type="submit">Login</button>
 
     {{#if error}}
-    <p style="color: red;">{{error}}</p>
+    <p style="color: rgb(20, 19, 19);">{{error}}</p>
     {{/if}}
   </form>
-  <a href="/signup">Dont have an account?</a>
+  </div>
+  
+  <footer class="card-footer">
+    <a href="/signup" class="card-footer-item">Dont have an account?</a>
+  </footer>
+  </div>
+</div>
 </section>

@@ -1,27 +1,35 @@
 <section>
+<div class="box">
+  <div class="card width-50">
+      <div class="card-content">
+      <form action="/api/users/" method="post">
 
-  <form action="/api/users/" method="post">
-    <div>
-      <label for="name-input">Name</label>
-      <input type="text" name="name" id="name-input">
-    </div>
-    <div>
-      <label for="email-input">Email</label>
-      <input type="text" name="email" id="email-input">
-    </div>
+      <div class="field">
+        <label class="label" for="name-input">Name</label>
+        <input class="input" type="text" name="name" id="name-input">
+      </div>
+      <div class="field">
+        <label class="label" for="email-input">Email</label>
+        <input class="input" type="text" name="email" id="email-input">
+      </div>
 
-    <div>
-      <label for="password-input">Password</label>
-      <input type="password" name="password" id="password-input">
-    </div>
+      <div class="field">
+        <label class="label" for="password-input">Password</label>
+        <input class="input" type="password" name="password" id="password-input">
+      </div>
 
-    <button type="submit">Signup</button>
+    <button class="button" type="submit">Signup</button>
 
     {{#if error}}
-    <p style="color: red;">{{error}}</p>
+    <p style="color: rgb(6, 0, 0);">{{error}}</p>
     {{/if}}
   </form>
-
-  <a href="/login">Already have an account?</a>
-
+  
+  </div>
+  
+  <footer class="card-footer">
+    <a href="/login" class="card-footer-item">Already have an account?</a>
+  </footer>
+  </div>
+</div>
 </section>
