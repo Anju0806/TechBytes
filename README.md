@@ -71,7 +71,14 @@ Contributions are welcome! If you would like to contribute to this project, plea
 5. Submit a pull request explaining your changes.
 
 ## Screenshots
+<img width="1440" alt="Screenshot 2023-07-21 at 3 56 39 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/41e357c1-6ad3-4e87-a19a-bceb30a1a7aa">
+<img width="1440" alt="Screenshot 2023-07-21 at 3 59 40 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/3a3bf104-5091-4f36-942b-dd35fceab467">
+![Screenshot 2023-07-21 at 3 59 51 pm](https://github.com/Anju0806/TechBytes/assets/126565826/a8959063-7f18-439e-a9d0-b20bdd641c22)
+<img width="1440" alt="Screenshot 2023-07-21 at 3 59 27 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/f51cf721-a0fb-460d-885d-8c25912eb3ae">
 
+<img width="1440" alt="Screenshot 2023-07-21 at 4 01 19 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/2ec27fb1-ab18-4d81-bc3e-cc7799369a22">
+<img width="1440" alt="Screenshot 2023-07-21 at 4 01 35 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/503e02e8-b6af-4089-bb4b-987ab6a0f4ce">
+<img width="1440" alt="Screenshot 2023-07-21 at 4 01 45 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/3263167b-7002-4926-ae8c-4af3696da48b">
 
 
 ## Questions
