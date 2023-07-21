@@ -1,14 +1,10 @@
 <section>
 
   <form action="/api/users/login" method="post">
-
-
     <div>
       <label for="email-input">Email</label>
       <input type="text" name="email" id="email-input">
     </div>
-
-
     <div>
       <label for="password-input">Password</label>
       <input type="password" name="password" id="password-input">
@@ -20,7 +16,5 @@
     <p style="color: red;">{{error}}</p>
     {{/if}}
   </form>
-
   <a href="/signup">Dont have an account?</a>
-
 </section>

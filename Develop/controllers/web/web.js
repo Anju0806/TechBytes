@@ -4,7 +4,6 @@ const { Post, Comment, User } = require('../../models');
 const router = require('express').Router();
 
 
-
 //  / -- list of projects
 router.get('/', async(req, res) => {
 try{
@@ -60,11 +59,6 @@ router.get('/dashboard', async (req, res) => {
   }
 });
 
-
-
-
-
-
 router.get('/editpost/:id', async (req, res) => {
   try {
     const postId = req.params.id;
@@ -96,9 +90,6 @@ router.get('/addapost', async (req, res) => {
 }
 });
 
-
-
-
 router.get('/addcomment', async (req, res) => {
   if (!req.session.logged_in) {
     return res.render('login');
@@ -113,11 +104,6 @@ router.get('/addcomment', async (req, res) => {
         post_id: postId
       }
     });
-    if (existingComment) {
-      /* return res.redirect(`/post/${postId}`);  */
-      return res.status(400).json({ error: 'Comment already exists.' });
-    }
-    
     // User has not written a comment, render the "addcomment" template
     const post_data = await Post.findByPk(postId, {
       include: [
@@ -131,8 +117,13 @@ router.get('/addcomment', async (req, res) => {
       return res.status(404).json({ error: 'Could not find the post.' });
     } 
     const post_plain = post_data.get({ plain: true });
-    const comment_data = post_plain.user.comments;
-    res.render('addcomment',{ post_plain, comment_data, logged_in: req.session.logged_in });
+    let comment_data = post_plain.user.comments;
+    let errorMessage='';
+    if (existingComment) {
+      comment_data=existingComment.dataValues;
+    res.render('onepost', {post_plain, comment_data, logged_in: req.session.logged_in,errorMessage: 'Comment already exists.You can comment a post only once.'});
+    }
+    res.render('addcomment',{ post_plain, comment_data, logged_in: req.session.logged_in,errorMessage });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Server error' });
@@ -164,7 +155,7 @@ router.get('/post/:id', async (req, res) => {
     const post_plain = post_data.get({ plain: true });
     //const comment_data = post_plain.user.comments;
     const comment_data = post_plain.comments;
-    res.render('onepost', { post_plain, comment_data, logged_in: req.session.logged_in });
+    res.render('onepost', { post_plain, comment_data, logged_in: req.session.logged_in,errorMessage:'' });
   } catch (error) {
     console.error(error);
     res.render('error');
@@ -189,24 +180,6 @@ router.get('/signup', (req, res) => {
   });
 })
 
-
-
-
-
 router.use(authenticate);
-/* router.get('/', (req, res) => {
-
-  // need the current user
-  User.findByPk(req.session.user_id,).then((userData) => {
-    res.render('/', {
-      logged_in: req.session.logged_in,
-      user: userData.get({plain: true}),
-    })
-
-  })
-
-}) */
-
-
 
 module.exports = router;
