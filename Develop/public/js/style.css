@@ -51,3 +51,7 @@ body {
 .make-white{
     color: #f7f0d9;
 }
+.width-50{
+    max-width: 50%;
+    left:20%;
+}
