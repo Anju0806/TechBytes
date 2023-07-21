@@ -1,4 +1,4 @@
-# TechBytes
+<img width="1440" alt="Screenshot 2023-07-21 at 4 45 57 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/2c7d5043-dd77-49a7-8b63-733abea98529"># TechBytes
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 The Tech Bytes is a dynamic and user-friendly CMS-style website designed specifically for developers. It provides a platform for developers to publish their blog posts, share their thoughts, and engage in meaningful discussions within the tech community.
@@ -79,6 +79,10 @@ Contributions are welcome! If you would like to contribute to this project, plea
 <img width="1440" alt="Screenshot 2023-07-21 at 4 01 19 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/2ec27fb1-ab18-4d81-bc3e-cc7799369a22">
 <img width="1440" alt="Screenshot 2023-07-21 at 4 01 35 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/503e02e8-b6af-4089-bb4b-987ab6a0f4ce">
 <img width="1440" alt="Screenshot 2023-07-21 at 4 01 45 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/3263167b-7002-4926-ae8c-4af3696da48b">
+
+<img width="1440" alt="Screenshot 2023-07-21 at 4 45 57 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/2c63599a-00ae-4446-8030-c1f970b279d2">
+<img width="1440" alt="Screenshot 2023-07-21 at 4 46 05 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/88dae9c7-66b1-49f2-adbd-0773f553a986">
+
 
 
 ## Questions
