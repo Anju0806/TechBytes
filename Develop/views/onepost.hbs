@@ -24,14 +24,19 @@
             <p class="make-white">Commented by {{comment.user.name}} on {{formatDate comment.createdAt}}</p>
           </div>
           {{/each}}
-          <footer class="card-footer">
+          {{#if errorMessage}}
+         <a href="/" class="card-footer-item">Go to home</a>
+            <div id="one-comment-error-message">{{errorMessage}}</div>
+            {{else}}
+             <footer class="card-footer">
             <a href="/addcomment?postid={{post_plain.id}}" class="card-footer-item" data-id="{{post.id}}">Add
               comments</a>
             <a href="/" class="card-footer-item">Go to home</a>
 
           </footer>
+  {{/if}}
         </div>
-        <div id="one-comment-error-message"></div>
+        
       </div>
     </div>
   </div>
