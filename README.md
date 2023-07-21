@@ -1,4 +1,4 @@
-<img width="1440" alt="Screenshot 2023-07-21 at 4 45 57 pm" src="https://github.com/Anju0806/TechBytes/assets/126565826/2c7d5043-dd77-49a7-8b63-733abea98529"># TechBytes
+# TechBytes
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 The Tech Bytes is a dynamic and user-friendly CMS-style website designed specifically for developers. It provides a platform for developers to publish their blog posts, share their thoughts, and engage in meaningful discussions within the tech community.
