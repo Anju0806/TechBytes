@@ -73,6 +73,5 @@ Contributions are welcome! If you would like to contribute to this project, plea
 ## Screenshots
 
 
-
 ## Questions
 If you have any questions about the repo, please open an issue or contact me at anjualfino@gmail.com. 
