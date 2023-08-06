@@ -58,7 +58,7 @@ TechBytes provides the following features:
 This project is licensed under the MIT .
 
 ## The URL of the deployed application(Heroku)
-
+https://techbytes08-e86c9c8ffcb8.herokuapp.com/
 
 ## Contributing
 
